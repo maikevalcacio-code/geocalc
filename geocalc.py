@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request
+from pyproj import Transformer
 
 app = Flask(__name__)
 
@@ -40,12 +41,33 @@ def inicio():
             else:
                 zona_utm = int((longitude + 180) / 6) + 1
 
+            # Define o sistema UTM correspondente ao ponto
+            if latitude >= 0:
+                epsg_utm = 32600 + zona_utm
+            else:
+                epsg_utm = 32700 + zona_utm
+
+            # Converte latitude/longitude (WGS 84) para UTM
+            transformer = Transformer.from_crs(
+                "EPSG:4326",
+                f"EPSG:{epsg_utm}",
+                always_xy=True
+            )
+
+            easting, northing = transformer.transform(
+                longitude,
+                latitude
+            )
+
             resultado = {
                 "latitude": latitude,
                 "longitude": longitude,
                 "hemisferio": hemisferio,
                 "posicao": posicao,
-                "zona": zona_utm
+                "zona": zona_utm,
+                "easting": round(easting, 2),
+                "northing": round(northing, 2),
+                "epsg": epsg_utm
             }
 
         except ValueError as e:

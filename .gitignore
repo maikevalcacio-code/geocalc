@@ -4,3 +4,4 @@ __pycache__/
 *_backup.py
 geocalc_terminal.py
 GeoCalc.py
+geocalc_antes_utm.py

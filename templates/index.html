@@ -122,7 +122,34 @@
 
                 <div class="utm">
                     <span>ZONA UTM</span>
-                    <strong>{{ resultado.zona }}</strong>
+                    <strong>
+                        {{ resultado.zona }}
+                        {{ "S" if resultado.hemisferio == "Sul" else "N" }}
+                    </strong>
+                </div>
+
+                <div class="utm-coordinates">
+
+                    <div>
+                        <small>EASTING (E)</small>
+                        <strong>{{ resultado.easting }} m</strong>
+                    </div>
+
+                    <div>
+                        <small>NORTHING (N)</small>
+                        <strong>{{ resultado.northing }} m</strong>
+                    </div>
+
+                    <div>
+                        <small>SISTEMA</small>
+                        <strong>WGS 84 / UTM</strong>
+                    </div>
+
+                    <div>
+                        <small>EPSG</small>
+                        <strong>{{ resultado.epsg }}</strong>
+                    </div>
+
                 </div>
 
 
