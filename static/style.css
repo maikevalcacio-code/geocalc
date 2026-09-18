@@ -575,3 +575,334 @@ footer:first-letter {
         grid-template-columns: 1fr;
     }
 }
+
+/* REMOVE A CURVATURA DA TERRA */
+
+.glow {
+    position: fixed;
+    z-index: -1;
+
+    width: 900px;
+    height: 700px;
+
+    top: 40%;
+    left: 50%;
+    bottom: auto;
+
+    transform: translate(-50%, -50%);
+
+    border: none;
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(29, 130, 153, 0.10) 0%,
+            rgba(19, 88, 108, 0.05) 35%,
+            transparent 70%
+        );
+
+    box-shadow: none;
+    filter: blur(40px);
+    opacity: 1;
+
+    pointer-events: none;
+}
+
+/* FUNDO MAIS PROFUNDO */
+
+body {
+    background:
+        radial-gradient(
+            circle at 50% 40%,
+            #07171e 0%,
+            #02090e 38%,
+            #010407 70%,
+            #000204 100%
+        );
+
+    background-attachment: fixed;
+}
+
+/* ESTRELAS */
+
+body::before {
+    background-image:
+        radial-gradient(circle, rgba(255,255,255,.95) 1px, transparent 1.6px),
+        radial-gradient(circle, rgba(150,210,255,.75) .9px, transparent 1.5px),
+        radial-gradient(circle, rgba(255,255,255,.55) .6px, transparent 1.1px);
+
+    background-size:
+        97px 97px,
+        151px 151px,
+        61px 61px;
+
+    background-position:
+        17px 31px,
+        83px 19px,
+        42px 76px;
+
+    opacity: .65;
+}
+
+/* BRILHO MUITO SUTIL ATRÁS DO GEOCALC */
+
+.app {
+    box-shadow:
+        0 35px 100px rgba(0,0,0,.75),
+        0 0 70px rgba(54,210,165,.04);
+}
+
+
+
+/* =========================================
+   FUNDO ESPACIAL DEFINITIVO
+   ========================================= */
+
+html,
+body {
+    min-height: 100%;
+    background: #010509 !important;
+}
+
+body {
+    position: relative;
+    overflow-x: hidden;
+}
+
+
+/* REMOVE O ANTIGO EFEITO DE PLANETA */
+
+.glow {
+    display: none !important;
+}
+
+
+/* ESPAÇO */
+
+.space-background {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+
+    background:
+        radial-gradient(
+            circle at 50% 35%,
+            #09202a 0%,
+            #041016 32%,
+            #010509 70%,
+            #000203 100%
+        );
+}
+
+
+/* TODAS AS ESTRELAS */
+
+.stars {
+    position: absolute;
+    inset: 0;
+}
+
+
+/* ESTRELAS PEQUENAS */
+
+.stars-small {
+    background-image:
+        radial-gradient(circle, white 1px, transparent 1.4px),
+        radial-gradient(circle, #b9ddff 1px, transparent 1.4px);
+
+    background-size:
+        67px 67px,
+        113px 113px;
+
+    background-position:
+        10px 20px,
+        47px 63px;
+
+    opacity: .55;
+}
+
+
+/* ESTRELAS MÉDIAS */
+
+.stars-medium {
+    background-image:
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.95) 0,
+            rgba(255,255,255,.65) 1px,
+            transparent 2px
+        );
+
+    background-size: 173px 173px;
+    background-position: 79px 31px;
+
+    opacity: .7;
+
+    animation:
+        starPulse 7s ease-in-out infinite alternate;
+}
+
+
+/* ESTRELAS MAIORES */
+
+.stars-large {
+    background-image:
+        radial-gradient(
+            circle,
+            #ffffff 0,
+            #ffffff 1px,
+            rgba(170,220,255,.5) 2px,
+            transparent 3px
+        );
+
+    background-size: 307px 307px;
+    background-position: 130px 80px;
+
+    opacity: .7;
+
+    animation:
+        starPulse 10s ease-in-out infinite alternate-reverse;
+}
+
+
+@keyframes starPulse {
+
+    from {
+        opacity: .35;
+    }
+
+    to {
+        opacity: .85;
+    }
+
+}
+
+
+/* GEOCALC FICA ACIMA DO ESPAÇO */
+
+.container {
+    position: relative !important;
+    z-index: 10 !important;
+}
+
+
+/* PAINEL FLUTUANDO */
+
+.app {
+    box-shadow:
+        0 35px 100px rgba(0,0,0,.75),
+        0 0 55px rgba(74,224,173,.06);
+}
+
+
+/* =========================================
+   ESPAÇO NATURAL — GEOCALC
+   ========================================= */
+
+.space-background {
+    background:
+        radial-gradient(
+            ellipse at 70% 25%,
+            rgba(20, 63, 82, .12),
+            transparent 38%
+        ),
+        radial-gradient(
+            ellipse at 15% 75%,
+            rgba(19, 77, 85, .07),
+            transparent 35%
+        ),
+        linear-gradient(
+            180deg,
+            #020609 0%,
+            #010407 55%,
+            #000203 100%
+        ) !important;
+}
+
+
+/* estrelas pequenas e discretas */
+
+.stars-small {
+    background-image:
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.55) .55px,
+            transparent .9px
+        ),
+        radial-gradient(
+            circle,
+            rgba(190,220,235,.38) .5px,
+            transparent .85px
+        ) !important;
+
+    background-size:
+        103px 127px,
+        181px 157px !important;
+
+    background-position:
+        19px 37px,
+        71px 91px !important;
+
+    opacity: .42 !important;
+
+    animation: none !important;
+}
+
+
+/* poucas estrelas um pouco mais visíveis */
+
+.stars-medium {
+    background-image:
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.72) .8px,
+            rgba(255,255,255,.15) 1.2px,
+            transparent 1.8px
+        ) !important;
+
+    background-size:
+        263px 211px !important;
+
+    background-position:
+        37px 79px !important;
+
+    opacity: .45 !important;
+
+    animation: none !important;
+}
+
+
+/* pontos luminosos raros */
+
+.stars-large {
+    background-image:
+        radial-gradient(
+            circle,
+            rgba(220,240,255,.75) .9px,
+            rgba(120,190,220,.12) 1.8px,
+            transparent 3px
+        ) !important;
+
+    background-size:
+        487px 379px !important;
+
+    background-position:
+        121px 53px !important;
+
+    opacity: .38 !important;
+
+    animation: none !important;
+}
+
+
+/* painel menos brilhante */
+
+.app {
+    box-shadow:
+        0 35px 100px rgba(0,0,0,.72),
+        0 0 35px rgba(66,190,160,.025) !important;
+}
+
