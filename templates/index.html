@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>GeoCalc</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="glow"></div>
+
+<main class="container">
+
+    <header class="hero">
+
+        <div class="globe">
+            <div class="longitude"></div>
+            <div class="latitude"></div>
+        </div>
+
+        <div>
+            <h1>GEOCALC</h1>
+            <p>Explore coordenadas. Entenda o espaço.</p>
+        </div>
+
+    </header>
+
+
+    <section class="app">
+
+        <div class="painel">
+
+            <div class="section-title">
+                <span>⌖</span>
+
+                <div>
+                    <h2>Análise de coordenadas</h2>
+                    <p>Localize e analise qualquer ponto do planeta.</p>
+                </div>
+            </div>
+
+
+            <form method="POST">
+
+                <label for="latitude">LATITUDE</label>
+
+                <input
+                    id="latitude"
+                    name="latitude"
+                    type="text"
+                    placeholder="-27.5949"
+                    value="{{ resultado.latitude if resultado else '' }}"
+                    required
+                >
+
+
+                <label for="longitude">LONGITUDE</label>
+
+                <input
+                    id="longitude"
+                    name="longitude"
+                    type="text"
+                    placeholder="-48.5482"
+                    value="{{ resultado.longitude if resultado else '' }}"
+                    required
+                >
+
+
+                <button type="submit">
+                    ANALISAR COORDENADAS
+                </button>
+
+            </form>
+
+
+            {% if erro %}
+
+            <div class="erro">
+                {{ erro }}
+            </div>
+
+            {% endif %}
+
+
+            {% if resultado %}
+
+            <div class="resultado">
+
+                <div class="resultado-header">
+                    RESULTADO
+                </div>
+
+                <div class="dados">
+
+                    <div>
+                        <small>HEMISFÉRIO</small>
+                        <strong>{{ resultado.hemisferio }}</strong>
+                    </div>
+
+                    <div>
+                        <small>POSIÇÃO</small>
+                        <strong>{{ resultado.posicao }}</strong>
+                    </div>
+
+                </div>
+
+
+                <div class="utm">
+                    <span>ZONA UTM</span>
+                    <strong>{{ resultado.zona }}</strong>
+                </div>
+
+
+                <a
+                    class="external"
+                    href="https://www.google.com/maps?q={{ resultado.latitude }},{{ resultado.longitude }}"
+                    target="_blank"
+                    rel="noopener"
+                >
+                    ABRIR NO GOOGLE MAPS ↗
+                </a>
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+
+        
+        <div class="map-area">
+
+            <div class="search-area">
+
+                <div class="search-box">
+
+                    <span>⌕</span>
+
+                    <input
+                        id="place-search"
+                        type="text"
+                        placeholder="Pesquisar lugar... Ex: Recife, Pernambuco"
+                    >
+
+                    <button
+                        type="button"
+                        id="search-button"
+                    >
+                        BUSCAR
+                    </button>
+
+                </div>
+
+                <div id="search-message"></div>
+
+            </div>
+
+
+            <div class="map-header">
+
+                <div>
+                    <span class="status"></span>
+                    MAPA INTERATIVO
+                </div>
+
+                <span id="coords">
+                    Clique no mapa para obter coordenadas
+                </span>
+
+            </div>
+
+            <div id="map"></div>
+
+        </div>
+
+    </section>
+
+
+    <footer>
+        GEOCALC
+        <span>•</span>
+        Geografia + Tecnologia
+    </footer>
+
+</main>
+
+
+<script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+</script>
+
+
+<script>
+
+    const latitudeInput =
+        document.getElementById("latitude");
+
+    const longitudeInput =
+        document.getElementById("longitude");
+
+
+    {% if resultado %}
+
+    const initialLat =
+        {{ resultado.latitude }};
+
+    const initialLng =
+        {{ resultado.longitude }};
+
+    const initialZoom = 13;
+
+    {% else %}
+
+    const initialLat = -14.2350;
+    const initialLng = -51.9253;
+    const initialZoom = 4;
+
+    {% endif %}
+
+
+    const map = L.map("map").setView(
+        [initialLat, initialLng],
+        initialZoom
+    );
+
+
+    L.tileLayer(
+        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+        {
+            maxZoom: 19,
+            attribution:
+                '&copy; OpenStreetMap contributors'
+        }
+    ).addTo(map);
+
+
+    let marker;
+
+
+    {% if resultado %}
+
+    marker = L.marker(
+        [initialLat, initialLng]
+    ).addTo(map);
+
+    marker
+        .bindPopup(
+            "Latitude: " +
+            initialLat +
+            "<br>Longitude: " +
+            initialLng
+        )
+        .openPopup();
+
+    {% endif %}
+
+
+    const searchInput =
+        document.getElementById("place-search");
+
+    const searchButton =
+        document.getElementById("search-button");
+
+    const searchMessage =
+        document.getElementById("search-message");
+
+
+    async function pesquisarLugar() {
+
+        const pesquisa =
+            searchInput.value.trim();
+
+        if (!pesquisa) {
+            searchMessage.textContent =
+                "Digite um lugar para pesquisar.";
+            return;
+        }
+
+        searchMessage.textContent =
+            "Procurando...";
+
+        try {
+
+            const url =
+                "https://nominatim.openstreetmap.org/search" +
+                "?format=json" +
+                "&limit=1" +
+                "&q=" +
+                encodeURIComponent(pesquisa);
+
+            const resposta =
+                await fetch(url);
+
+            const dados =
+                await resposta.json();
+
+
+            if (dados.length === 0) {
+
+                searchMessage.textContent =
+                    "Local não encontrado.";
+
+                return;
+            }
+
+
+            const lat =
+                parseFloat(dados[0].lat);
+
+            const lng =
+                parseFloat(dados[0].lon);
+
+
+            map.setView(
+                [lat, lng],
+                14
+            );
+
+
+            if (marker) {
+
+                marker.setLatLng(
+                    [lat, lng]
+                );
+
+            } else {
+
+                marker =
+                    L.marker(
+                        [lat, lng]
+                    ).addTo(map);
+
+            }
+
+
+            marker
+                .bindPopup(
+                    "<strong>" +
+                    dados[0].display_name +
+                    "</strong><br>" +
+                    lat.toFixed(6) +
+                    ", " +
+                    lng.toFixed(6)
+                )
+                .openPopup();
+
+
+            latitudeInput.value =
+                lat.toFixed(6);
+
+            longitudeInput.value =
+                lng.toFixed(6);
+
+
+            document.getElementById(
+                "coords"
+            ).textContent =
+                lat.toFixed(6) +
+                ", " +
+                lng.toFixed(6);
+
+
+            searchMessage.textContent =
+                dados[0].display_name;
+
+        }
+
+        catch (erro) {
+
+            searchMessage.textContent =
+                "Não foi possível realizar a pesquisa.";
+
+        }
+
+    }
+
+
+    searchButton.addEventListener(
+        "click",
+        pesquisarLugar
+    );
+
+
+    searchInput.addEventListener(
+        "keydown",
+        function(event) {
+
+            if (event.key === "Enter") {
+
+                event.preventDefault();
+
+                pesquisarLugar();
+
+            }
+
+        }
+    );
+
+
+    map.on("click", function(e) {
+
+        const lat =
+            e.latlng.lat.toFixed(6);
+
+        const lng =
+            e.latlng.lng.toFixed(6);
+
+
+        latitudeInput.value = lat;
+        longitudeInput.value = lng;
+
+
+        document.getElementById(
+            "coords"
+        ).textContent =
+            lat + ", " + lng;
+
+
+        if (marker) {
+
+            marker.setLatLng(
+                e.latlng
+            );
+
+        } else {
+
+            marker =
+                L.marker(
+                    e.latlng
+                ).addTo(map);
+
+        }
+
+
+        marker
+            .bindPopup(
+                "Latitude: " +
+                lat +
+                "<br>Longitude: " +
+                lng
+            )
+            .openPopup();
+
+    });
+
+</script>
+
+</body>
+</html>

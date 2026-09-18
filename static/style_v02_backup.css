@@ -1,0 +1,507 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    color: #eaf5ef;
+
+    background:
+        radial-gradient(
+            circle at top,
+            #173d46,
+            #071b22 45%,
+            #041014 100%
+        );
+}
+
+
+/* FUNDO */
+
+.background-glow {
+    position: fixed;
+
+    width: 500px;
+    height: 500px;
+
+    top: -250px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    background: #32d583;
+
+    opacity: 0.08;
+
+    filter: blur(100px);
+
+    border-radius: 50%;
+
+    pointer-events: none;
+}
+
+
+/* CONTEÚDO */
+
+.container {
+    width: 90%;
+    max-width: 760px;
+
+    margin: auto;
+
+    padding:
+        55px 0
+        30px;
+}
+
+
+/* TOPO */
+
+.hero {
+    text-align: center;
+
+    margin-bottom: 35px;
+}
+
+.globe {
+    font-size: 72px;
+
+    margin-bottom: 10px;
+
+    filter:
+        drop-shadow(
+            0 0 18px
+            rgba(50, 213, 131, 0.35)
+        );
+}
+
+.hero h1 {
+    margin: 0;
+
+    font-size: 42px;
+
+    letter-spacing: 5px;
+}
+
+.hero p {
+    color: #a6bbb4;
+
+    margin:
+        8px 0
+        15px;
+}
+
+.tag {
+    display: inline-block;
+
+    padding:
+        7px 13px;
+
+    border:
+        1px solid #2b6d60;
+
+    border-radius: 30px;
+
+    color: #69e2ae;
+
+    font-size: 12px;
+
+    letter-spacing: 1px;
+}
+
+
+/* CARD */
+
+.card {
+    background:
+        rgba(
+            12,
+            37,
+            43,
+            0.85
+        );
+
+    border:
+        1px solid
+        rgba(
+            105,
+            226,
+            174,
+            0.15
+        );
+
+    border-radius: 18px;
+
+    padding: 32px;
+
+    box-shadow:
+        0 20px 60px
+        rgba(0, 0, 0, 0.35);
+
+    backdrop-filter:
+        blur(10px);
+}
+
+
+.card-title {
+    display: flex;
+
+    gap: 14px;
+
+    align-items:
+        flex-start;
+
+    margin-bottom:
+        25px;
+}
+
+.card-title > span {
+    color: #69e2ae;
+
+    font-size: 30px;
+}
+
+.card h2 {
+    margin: 0;
+
+    font-size: 22px;
+}
+
+.card-title p {
+    margin:
+        5px 0 0;
+
+    color: #829b93;
+
+    font-size: 14px;
+}
+
+
+/* CAMPOS */
+
+.campos {
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 18px;
+}
+
+label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #8ba59c;
+
+    font-size: 11px;
+
+    font-weight: bold;
+
+    letter-spacing: 1.5px;
+}
+
+input {
+    width: 100%;
+
+    padding: 15px;
+
+    background: #071a20;
+
+    color: white;
+
+    border:
+        1px solid #29474b;
+
+    border-radius: 9px;
+
+    font-size: 17px;
+
+    transition: 0.2s;
+}
+
+input:focus {
+    outline: none;
+
+    border-color:
+        #55d99e;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(
+            85,
+            217,
+            158,
+            0.1
+        );
+}
+
+
+/* BOTÃO */
+
+button {
+    width: 100%;
+
+    margin-top: 22px;
+
+    padding: 15px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #36c981,
+            #63e5a7
+        );
+
+    color: #062017;
+
+    border: none;
+
+    border-radius: 9px;
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+    letter-spacing: 1px;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+button:hover {
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 8px 25px
+        rgba(
+            54,
+            201,
+            129,
+            0.25
+        );
+}
+
+
+/* RESULTADOS */
+
+.resultado {
+    margin-top: 30px;
+
+    padding-top: 25px;
+
+    border-top:
+        1px solid #244047;
+}
+
+.resultado-titulo {
+    color: #65dfa8;
+
+    font-size: 11px;
+
+    letter-spacing: 1.5px;
+
+    margin-bottom: 18px;
+}
+
+.resultado-grid {
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 12px;
+}
+
+.resultado-item {
+    padding: 16px;
+
+    background: #071a20;
+
+    border-radius: 9px;
+}
+
+.resultado-item small {
+    display: block;
+
+    color: #78928a;
+
+    font-size: 10px;
+
+    margin-bottom: 7px;
+}
+
+.resultado-item strong {
+    font-size: 18px;
+}
+
+
+/* UTM */
+
+.utm {
+    margin-top: 12px;
+
+    padding: 18px;
+
+    display: flex;
+
+    justify-content:
+        space-between;
+
+    align-items: center;
+
+    background:
+        rgba(
+            65,
+            210,
+            143,
+            0.08
+        );
+
+    border:
+        1px solid
+        rgba(
+            65,
+            210,
+            143,
+            0.25
+        );
+
+    border-radius: 9px;
+}
+
+.utm span {
+    color: #9db3ab;
+
+    font-size: 12px;
+}
+
+.utm strong {
+    color: #6be4ac;
+
+    font-size: 28px;
+}
+
+
+/* MAPA */
+
+.map-button {
+    display: block;
+
+    margin-top: 15px;
+
+    padding: 14px;
+
+    text-align: center;
+
+    text-decoration: none;
+
+    color: #71e7b2;
+
+    border:
+        1px solid #2c6656;
+
+    border-radius: 9px;
+
+    font-size: 12px;
+
+    font-weight: bold;
+
+    letter-spacing: 1px;
+
+    transition: 0.2s;
+}
+
+.map-button:hover {
+    background:
+        rgba(
+            83,
+            220,
+            158,
+            0.08
+        );
+}
+
+
+/* ERRO */
+
+.erro {
+    margin-top: 20px;
+
+    padding: 14px;
+
+    background:
+        rgba(
+            255,
+            100,
+            100,
+            0.08
+        );
+
+    border:
+        1px solid
+        rgba(
+            255,
+            100,
+            100,
+            0.2
+        );
+
+    border-radius: 8px;
+}
+
+
+/* RODAPÉ */
+
+footer {
+    display: flex;
+
+    justify-content:
+        center;
+
+    gap: 8px;
+
+    margin-top: 25px;
+
+    color: #607a72;
+
+    font-size: 11px;
+
+    letter-spacing: 1px;
+}
+
+
+/* CELULAR */
+
+@media (
+    max-width: 600px
+) {
+
+    .campos,
+    .resultado-grid {
+        grid-template-columns:
+            1fr;
+    }
+
+    .card {
+        padding: 22px;
+    }
+
+    .hero h1 {
+        font-size: 34px;
+    }
+
+    .globe {
+        font-size: 60px;
+    }
+}

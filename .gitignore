@@ -1,0 +1,6 @@
+.venv/
+__pycache__/
+*.pyc
+*_backup.py
+geocalc_terminal.py
+GeoCalc.py
